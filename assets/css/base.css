@@ -1,0 +1,120 @@
+/* font polices personnelles */
+/* @font-face 
+{
+    font-family: chocolate;
+    src: url(../fonts/police/chocolate_drink/Chocolate_DRINK_DEMO.ttf);
+}
+
+@font-face
+{
+    font-family: locare;
+    src: url(../fonts/police/locare_brush/locare\ Brush.ttf);
+}
+
+@font-face
+{
+    font-family: mella;
+    src: url(../fonts/police/mella_nissa/Mella\ Nissa.ttf);
+}
+
+@font-face
+{
+    font-family: michegar;
+    src: url(../fonts/police/michegar/Michegar.ttf);
+}
+
+@font-face
+{
+    font-family: quillain;
+    src: url(../fonts/police/quillain/Quillain\ \(DEMO\).ttf);
+} */
+
+@font-face
+{
+    font-family: lemon;
+    /* src: url(../font/Lemon_Juice.otf); */
+    src: url(../font/Lemon_Juice.otf);
+}
+
+/* media query */
+@media (max-width: 576px)
+{
+    .navtop strong{
+        font-size: 5rem;
+    }
+
+    /* .sign{
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+    } */
+}
+
+/* Entete */
+header
+{
+    background: linear-gradient(0deg, #3197d6, white);
+}
+
+.navtop strong
+{
+    font-style: italic;
+    font-weight: bold;
+    font-family: lemon;
+    color: #3197d6;
+}
+
+.signLog
+{
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0e476b;
+    /* color: white; */
+}
+
+nav ul li .nav-link
+{
+    color: white !important;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+nav ul li .nav-link:hover
+{
+    color: #0e476b;
+}
+
+
+/* pied de page */
+footer
+{
+    background: #3197d6;
+}
+
+footer ul
+{
+    list-style-type: none;
+    padding: 0;
+}
+
+footer ul li
+{
+    color: white;
+}
+
+/* Animation */
+
+@keyframes zoom{
+    from{
+        transform: scale(1);
+    }
+
+    50%{
+        transform: scale(1.1);
+    }
+
+    100%{
+        transform: scale(1);
+    }
+}

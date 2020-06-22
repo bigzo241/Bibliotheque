@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Inscription | 2PRI {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('inscription') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-6">
+                <h1 class="text-center">Inscription</h1>
+                <form class="p-4 mb-5 formConnexion" action="compte.html">
+    
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Prénom</label>
+                        <input type="text" class="form-control" id="prenom" aria-describedby="emailHelp">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Nom</label>
+                        <input type="text" class="form-control" id="nom">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Email</label>
+                        <input type="email" class="form-control" id="nom">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Profession</label>
+                        <input type="text" class="form-control" id="nom">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Mot de passe</label>
+                        <input type="password" class="form-control" id="nom">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Confirmez votre mot de passe</label>
+                        <input type="password" class="form-control" id="nom">
+                    </div>
+    
+                    <button type="submit" class="btn btn-primary">Valider</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {{encore_entry_script_tags('inscription')}}
+{% endblock %}

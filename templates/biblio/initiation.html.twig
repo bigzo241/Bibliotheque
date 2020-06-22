@@ -1,0 +1,203 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Initiation en informatique | 2PRI {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('accueil') }}
+{% endblock %}
+
+{% block body %}
+    <!-- jumbotron initiation -->
+    <div class="jumbotron" style="background-color: #f2f2f2;">
+        <div class="row justify-content-between">
+            <div class="col-md-5 col-lg-5">
+                <h1 class="display-5">Initiation en informatique</h1>
+            </div>
+            <div class="col-md-4 col-lg-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/">Accueil</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Initiation en informatique</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+    
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Nos ressources</h2>
+            </div>
+        </div>
+    
+        <!-- Tabs -->
+        <div class="row mt-2">
+            <div class="col-lg-12">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active w-50 text-center font-weight-bold docs" id="nav-documents-tab"
+                            data-toggle="tab" href="#nav-documents" role="tab" aria-controls="nav-documents"
+                            aria-selected="true">Documents</a>
+                        <a class="nav-item nav-link w-50 text-center font-weight-bold videos" id="nav-videos-tab"
+                            data-toggle="tab" href="#nav-videos" role="tab" aria-controls="nav-videos"
+                            aria-selected="false">Vidéos</a>
+                    </div>
+                </nav>
+    
+                <div class="p-3 tab-content" id="nav-tabContent">
+                    <!-- les documents -->
+                    <div class="tab-pane fade show active" id="nav-documents" role="tabpanel"
+                        aria-labelledby="nav-documents-tab">
+                        <div class="row">
+                            <!-- presentation des documents sur ecran large et plus -->
+                            <div class="d-none d-sm-none d-md-none d-lg-block col-lg-12">
+                                <div class="row">
+                                    <!-- image de la ressource -->
+                                    <div class="col-lg-2">
+                                        <img src="{{asset('build/wallpaper.jpg')}}" class="img-fluid" alt="Image du document">
+                                    </div>
+    
+                                    <!-- info concernant la ressource -->
+                                    <div class="col-lg-3 d-lg-flex flex-column">
+                                        <span class="pb-1">Document 1</span>
+                                        <span class="pb-1">Taille: 15 Mo</span>
+                                        <span class="pb-1">Pages: 400</span>
+                                        <span class="pb-1">Ajouté le: 12/06/2020</span>
+                                        <span class="pb-1">Contributeur: Mamadou ZO</span>
+                                        <span>Telechargé <span class="badge badge-success">500</span> fois </span>
+                                    </div>
+    
+                                    <!-- description de la ressource -->
+                                    <div class="col-lg-7">
+                                        <p class="text-justify">
+                                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita assumenda qui
+                                            et rem quod repellendus autem, corrupti minus deleniti animi? Eius aut, animi
+                                            culpa ipsam ratione ipsa illum pariatur porro?
+                                        </p>
+                                    </div>
+                                </div>
+    
+                                <div class="row align-items-center mt-3">
+                                    <div class="col-lg-2 d-flex justify-content-center">
+                                        <a href="#" class="btn btn-primary text-center" role="button">Telecharger</a>
+                                    </div>
+                                    <div class="col-lg-3 d-flex justify-content-between">
+                                        <a href="#">120 j'aime</a>
+                                        <a href="#">20 j'aime pas</a>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <a href="#" class="btn btn-outline-info">Voir les commentaires(5)</a>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <!-- presentation des documents sur ecran moyen -->
+                            <div class="d-md-block d-lg-none col-md-12">
+                                <div class="row">
+                                    <!-- image de la ressource -->
+                                    <div class="col-5 col-sm-4 col-md-3">
+                                        <img src="img/doc1.jpg" class="img-fluid" alt="Image du document">
+                                    </div>
+    
+                                    <!-- info concernant la ressource -->
+                                    <div class="col-6 col-sm-6 col-md-4 d-lg-flex flex-column">
+                                        <span class="pb-1 d-block">Document 1</span>
+                                        <span class="pb-1 d-block">Taille: 15 Mo</span>
+                                        <span class="pb-1 d-block">Pages: 400</span>
+                                        <span class="pb-1 d-block">Ajouté le: 12/06/2020</span>
+                                        <span class="pb-1 d-block">Contributeur: Mamadou ZO</span>
+                                        <span>Telechargé <span class="badge badge-success">500</span> fois </span>
+                                    </div>
+                                </div>
+    
+                                <div class="row align-items-center mt-4">
+                                    <!-- description de la ressource -->
+                                    <div class="col-md-12">
+                                        <p class="text-justify">
+                                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita assumenda qui
+                                            et rem quod repellendus autem,
+                                            corrupti minus deleniti animi? Eius aut, animi culpa ipsam ratione ipsa illum
+                                            pariatur porro?
+                                        </p>
+                                    </div>
+                                </div>
+    
+                                <div class="row">
+                                    <div class="col-6 col-sm-3 col-md-3 d-flex justify-content-center">
+                                        <a href="#" class="btn btn-primary text-center" role="button">Telecharger</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4 col-md-4 d-flex justify-content-between">
+                                        <a href="#">120 j'aime</a>
+                                        <a href="#">20 j'aime pas</a>
+                                    </div>
+                                    <div class="col-sm-5 col-md-5">
+                                        <a href="#" class="btn btn-outline-info">Voir les commentaires(5)</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- les videos -->
+                    <div class="tab-pane fade" id="nav-videos" role="tabpanel" aria-labelledby="nav-videos-tab">
+                        <div class="row">
+                            <!-- presentation des videos sur ecran moyen -->
+                            <div class="col-md-12 col-lg-12">
+                                <div class="row">
+                                    <!-- image de la video -->
+                                    <div class="col-5 col-sm-4 col-md-3 col-lg-2">
+                                        <img src="{{asset('build/wallpaper.jpg')}}" class="img-fluid" alt="Image du document">
+                                    </div>
+    
+                                    <!-- info concernant la video -->
+                                    <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex flex-column">
+                                        <span class="pb-1">Vidéo 1</span>
+                                        <span class="pb-1">Taille: 15 Mo</span>
+                                        <span class="pb-1">Durée: 40:05</span>
+                                        <span class="pb-1">Ajouté le: 12/06/2020</span>
+                                        <span class="pb-1">Contributeur: Mamadou ZO</span>
+                                        <span>Telechargé <span class="badge badge-success">500</span> fois </span>
+                                    </div>
+    
+                                    <!-- description de la video -->
+                                    <div class="col-lg-7 pt-3 pt-sm-3 pt-lg-0">
+                                        <p class="text-justify">
+                                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita assumenda qui
+                                            et rem quod repellendus
+                                            autem,
+                                            corrupti minus deleniti animi? Eius aut, animi culpa ipsam ratione ipsa illum
+                                            pariatur porro?
+                                        </p>
+                                    </div>
+                                </div>
+    
+                                <div class="row align-items-center mt-0 mt-sm-0 mt-md-1 mt-lg-3">
+                                    <div class="col-6 col-sm-3 col-md-3 col-lg-2 d-flex justify-content-center">
+                                        <a href="#" class="btn btn-primary text-center" role="button">Telecharger</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4 col-md-4 col-lg-3 d-flex justify-content-between">
+                                        <a href="#">120 j'aime</a>
+                                        <a href="#">20 j'aime pas</a>
+                                    </div>
+                                    <div class="col-sm-5 col-md-5 col-lg-3">
+                                        <a href="#" class="btn btn-outline-info">Voir les commentaires(5)</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    {{encore_entry_script_tags('accueil')}}
+{% endblock %}

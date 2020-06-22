@@ -1,0 +1,102 @@
+{% extends "base.html.twig" %}
+
+{# titre de la page #}
+{% block title %} Framework | 2PRI {% endblock %}
+
+{# fichiers css #}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('accueil') }}
+{% endblock %}
+
+{% block body %}
+    <!-- jumbotron framework -->
+    <div class="jumbotron" style="background-color: #f2f2f2;">
+        <div class="row justify-content-between">
+            <div class="col-md-5 col-lg-5">
+                <h1 class="display-5"> Framework </h1>
+            </div>
+            <div class="col-md-4 col-lg-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/">Accueil</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Framework</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3">
+            <div class="col mb-4 masque">
+                <div class="card">
+                    <a href="programmation.html">
+                        <img src="img/img16.jpg" class="card-img-top cardImg" alt="">
+                    </a>
+                    <div class="card-body">
+                        <a href="programmation.html">
+                            <h3 class="card-title text-center">Bootstrap</h3>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-4 masque">
+                <div class="card">
+                    <a href="programmation.html">
+                        <img src="img/img17.jpg" class="card-img-top cardImg" alt="">
+                    </a>
+                    <div class="card-body">
+                        <a href="programmation.html">
+                            <h3 class="card-title text-center">Symfony</h3>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-4 masque">
+                <div class="card">
+                    <a href="programmation.html">
+                        <img src="img/img18.jpg" class="card-img-top cardImg" alt="">
+                    </a>
+                    <div class="card-body">
+                        <a href="programmation.html">
+                            <h3 class="card-title text-center">Laravel</h3>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-4 masque">
+                <div class="card">
+                    <a href="programmation.html">
+                        <img src="img/img19.jpg" class="card-img-top cardImg" alt="">
+                    </a>
+                    <div class="card-body">
+                        <a href="programmation.html">
+                            <h3 class="card-title text-center">Angular</h3>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-4 masque">
+                <div class="card">
+                    <a href="programmation.html">
+                        <img src="img/img20.jpg" class="card-img-top cardImg" alt="">
+                    </a>
+                    <div class="card-body">
+                        <a href="programmation.html">
+                            <h3 class="card-title text-center">React</h3>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{# fichiers js #}
+{% block javascripts %}
+    {{parent()}}
+    {{encore_entry_script_tags('accueil')}}
+{% endblock %}

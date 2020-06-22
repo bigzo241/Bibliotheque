@@ -1,0 +1,59 @@
+
+/* Accueil */
+
+    /* Categories */
+    /* apparition des elemnts au scroll */
+.masque
+{
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.apparition
+{
+    opacity: 1;
+    transform: translateY(0);
+    transition: 1s cubic-bezier(0.5, 0, 0, 1);
+}
+
+    /*  */
+.categorie a
+{
+    text-decoration: none;
+}
+
+.cardImg
+{
+    height: 15rem;
+}
+
+.masque > a
+{
+    text-decoration: none;
+    color: #fff;
+    transform: translateY(0);
+}
+
+.masque > a:hover .categorie > div
+{
+    color: black;
+    font-weight: bold;
+    transform: translateY(50px);
+    transition: transform .5s linear;
+}
+
+/* Animation */
+
+@keyframes zoom{
+    from{
+        transform: scale(1);
+    }
+
+    50%{
+        transform: scale(1.1);
+    }
+
+    100%{
+        transform: scale(1);
+    }
+}
