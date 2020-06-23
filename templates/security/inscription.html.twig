@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Inscription | 2PRI {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('inscription') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center mt-5 mb-5">
+            <div class="col-lg-6">
+                <h1 class="text-center">Inscription</h1>
+                {{ form_start(form) }}
+                    {{form_row(form.username, {'label': 'Nom d\'utilisateur', 'attr': {'placeholder': 'nom d\'utilisateur...'}})}}
+                    {{form_row(form.email, {'label': 'Email', 'attr': {'placeholder': 'email...'}})}}
+                    {{form_row(form.password, {'label': 'Mot de passe', 'attr': {'placeholder': 'mot de passe...'}})}}
+                    {{form_row(form.confirm_password, {'label': 'Confirmation du mot de passe', 'attr': {'placeholder': 'repéter votre mot de passe'}})}}
+                    
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {{encore_entry_script_tags('inscription')}}
+{% endblock %}

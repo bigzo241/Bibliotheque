@@ -17,14 +17,4 @@ class ContributeurController extends AbstractController
     {
         return $this->render('contributeur/contribut.html.twig');
     }
-
-    /**
-     * fonction appelée pour renvoyer la page des inscriptions
-     * 
-     * @Route("/inscription", name="inscription")
-     */
-    public function inscription()
-    {
-        return $this->render('contributeur/inscription.html.twig');
-    }
 }

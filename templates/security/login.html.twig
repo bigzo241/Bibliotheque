@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion | 2PRI{% endblock %}
+
+{# fichiers css #}
+{% block stylesheets %}
+    {{ parent() }}
+    {{encore_entry_link_tags('inscription')}}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row justify-content-center mt-5 mb-5">
+            <div class="col-12 col-lg-7">
+                <h1 class="text-center">Connexion</h1>
+
+                {# <form class="p-4 formConnexion" action="compte.html">
+    
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Email</label>
+                        <input type="email" class="form-control" id="nom">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Mot de passe</label>
+                        <input type="password" class="form-control" id="nom">
+                    </div>
+    
+                    <button type="submit" class="btn btn-primary">Connexion</button>
+                </form> #}
+
+
+                <form method="post" class="p-4 formConnexion">
+                    {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                
+                    {% if app.user %}
+                    <div class="mb-3">
+                        Vous etes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                    {% endif %}
+                
+                    <label for="inputUsername">Nom d'utilisateur</label>
+                    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required
+                        autofocus>
+                    <label for="inputPassword">Mot de passe</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" required>
+                
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                
+                    <button class="btn btn-lg btn-primary mt-2" type="submit">
+                        Connexion
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{# fichiers js #}
+{% block javascripts %}
+    {{parent()}}
+    {{encore_entry_script_tags('inscription')}}
+{% endblock %}
