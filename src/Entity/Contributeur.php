@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ContributeurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -58,6 +60,22 @@ class Contributeur implements UserInterface
      * @Assert\NotBlank
      */
     private $email;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="contributeur")
+     */
+    private $documents;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="contributeur")
+     */
+    private $videos;
+
+    public function __construct()
+    {
+        $this->documents = new ArrayCollection();
+        $this->videos = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -160,5 +178,67 @@ class Contributeur implements UserInterface
     public function __toString()
     {
         return $this->username;
+    }
+
+    /**
+     * @return Collection|Document[]
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Document $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->setContributeur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): self
+    {
+        if ($this->documents->contains($document)) {
+            $this->documents->removeElement($document);
+            // set the owning side to null (unless already changed)
+            if ($document->getContributeur() === $this) {
+                $document->setContributeur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Video[]
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Video $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setContributeur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->videos->contains($video)) {
+            $this->videos->removeElement($video);
+            // set the owning side to null (unless already changed)
+            if ($video->getContributeur() === $this) {
+                $video->setContributeur(null);
+            }
+        }
+
+        return $this;
     }
 }
