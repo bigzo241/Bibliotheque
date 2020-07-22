@@ -6,9 +6,12 @@ use App\Repository\SuperCategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=SuperCategorieRepository::class)
+ * @vich\Uploadable
  */
 class SuperCategorie
 {
@@ -30,13 +33,26 @@ class SuperCategorie
     private $image;
 
     /**
-     * @ORM\OneToMany(targetEntity=Categorie::class, mappedBy="supercategorie")
+     * @Vich\UploadableField(mapping="supercategorie_images", fileNameProperty="image")
+     * @var File
      */
-    private $categories;
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Categorie::class, mappedBy="superCategorie")
+     */
+    private $cats;
+
 
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
+        $this->cats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -61,41 +77,77 @@ class SuperCategorie
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(?String $image): self
     {
         $this->image = $image;
 
         return $this;
     }
 
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if (null !== $imageFile) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->designation;
+    }
+
     /**
      * @return Collection|Categorie[]
      */
-    public function getCategories(): Collection
+    public function getCats(): Collection
     {
-        return $this->categories;
+        return $this->cats;
     }
 
-    public function addCategory(Categorie $category): self
+    public function addCat(Categorie $cat): self
     {
-        if (!$this->categories->contains($category)) {
-            $this->categories[] = $category;
-            $category->setSupercategorie($this);
+        if (!$this->cats->contains($cat)) {
+            $this->cats[] = $cat;
+            $cat->setSuperCategorie($this);
         }
 
         return $this;
     }
 
-    public function removeCategory(Categorie $category): self
+    public function removeCat(Categorie $cat): self
     {
-        if ($this->categories->contains($category)) {
-            $this->categories->removeElement($category);
+        if ($this->cats->contains($cat)) {
+            $this->cats->removeElement($cat);
             // set the owning side to null (unless already changed)
-            if ($category->getSupercategorie() === $this) {
-                $category->setSupercategorie(null);
+            if ($cat->getSuperCategorie() === $this) {
+                $cat->setSuperCategorie(null);
             }
         }
 
         return $this;
     }
+
 }

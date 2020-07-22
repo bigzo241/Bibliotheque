@@ -107,4 +107,9 @@ class Commentaire
 
         return $this;
     }
+
+    public function __toString()
+    {
+        $this->contenu;
+    }
 }

@@ -1,0 +1,19 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        categorie_images:
+            uri_prefix:         '%app.path.categorie_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.categorie_images%'
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+
+        supercategorie_images:
+            uri_prefix:         '%app.path.supercategorie_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.supercategorie_images%'
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+
+        

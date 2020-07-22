@@ -252,4 +252,9 @@ class Document
 
         return $this;
     }
+
+    public function __toString()
+    {
+        $this->titre;
+    }
 }

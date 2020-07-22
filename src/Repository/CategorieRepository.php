@@ -47,4 +47,15 @@ class CategorieRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getCatsInfo($username)
+    {
+        $manager = $this->getEntityManager();
+        $query = $manager->createQuery("SELECT c.designation, COUNT(d) AS documents
+                                        FROM App\Entity\Categorie c, App\Entity\Document d
+                                        WHERE c.designation = d.categorie
+                                        AND d.contributeur = :username")->setParameter('username', $username);
+        $data = $query->getArrayResult();
+        return $data;
+    }
 }

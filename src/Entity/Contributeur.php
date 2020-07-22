@@ -240,5 +240,5 @@ class Contributeur implements UserInterface
         }
 
         return $this;
-    }
+    }   
 }

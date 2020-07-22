@@ -11,7 +11,6 @@
 
     {% block stylesheets %}
     {{encore_entry_link_tags('app')}}
-    {{encore_entry_link_tags('bootnavbar')}}
     {{encore_entry_link_tags('base')}}
     {{encore_entry_link_tags('compte')}}
     {% endblock %}
@@ -38,13 +37,19 @@
                 <div class="col-lg-4">
                     <div class="row">
                         <div class="col-3 col-sm-3 col-md-3 col-lg-5">
-                            <img src="{{asset('build/person.svg')}}" class="w-100" alt="">
+                            <img src="{{asset('build/icons/person.svg')}}" class="w-100" alt="">
                         </div>
                         <div class="col-lg-7 d-flex flex-column justify-content-center">
                             <em class="h5"> <strong>Bienvenue {{username}}</strong> </em>
                             <p>
-                                <small class="text-muted">Vous pouvez gerer vos ressources convenablement depuis ce
-                                    compte</small>
+                                <small class="text-muted">
+                                    Vous pouvez gerer vos ressources convenablement depuis ce compte
+                                </small>
+                            </p>
+                            <p>
+                                {% for cat in menucats %}
+                                    Nombre de doc : {{cat.designation}}
+                                {% endfor %}
                             </p>
                         </div>
                     </div>
@@ -60,19 +65,19 @@
         
                     <div class="row justify-content-center">
                         <div class="col-lg-2 text-center">
-                            <img src="{{asset('build/file-earmark-text.svg')}}" class="w-100" alt="icon fichier">
+                            <img src="{{asset('build/icons/file-earmark-text.svg')}}" class="w-100" alt="icon fichier">
                             <span class="badge badge-info">5</span>
                         </div>
                         <div class="col-lg-2 text-center">
-                            <img src="{{asset('build/film.svg')}}" class="w-100" alt="icon video">
+                            <img src="{{asset('build/icons/film.svg')}}" class="w-100" alt="icon video">
                             <span class="badge badge-info">5</span>
                         </div>
                         <div class="col-lg-2 text-center">
-                            <img src="{{asset('build/chat-dots.svg')}}" class="w-100" alt="icon comment">
+                            <img src="{{asset('build/icons/chat-dots.svg')}}" class="w-100" alt="icon comment">
                             <span class="badge badge-info">5</span>
                         </div>
                         <div class="col-lg-2 text-center">
-                            <img src="{{asset('build/download.svg')}}" class="w-100" alt="icon telechargement">
+                            <img src="{{asset('build/icons/download.svg')}}" class="w-100" alt="icon telechargement">
                             <span class="badge badge-info">5</span>
                         </div>
                         <div class="col-lg-2"></div>
@@ -102,8 +107,8 @@
                                     <a class="dropdown-item" href="#">Supprimer votre compte</a>
                                 </div>
                             </div>
-                            <a href="#" class="btn btn-outline-primary">Aller sur le site</a>
-                            <a href="#" class="btn btn-outline-primary">Deconnexion</a>
+                            <a href="{{path('accueil')}}" class="btn btn-outline-primary">Aller sur le site</a>
+                            <a href="{{path('app_logout')}}" class="btn btn-outline-primary">Deconnexion</a>
                         </div>
                     </div>
                     <div class="row"></div>
@@ -245,7 +250,7 @@
                                             <div class="row">
                                                 <!-- image de la ressource -->
                                                 <div class="col-5 col-sm-4 col-md-3 col-lg-3">
-                                                    <img src="{{asset('build/doc1.jpg')}}" class="img-fluid" alt="Image du document">
+                                                    <img src="{{asset('build/img/doc1.jpg')}}" class="img-fluid" alt="Image du document">
                                                 </div>
         
                                                 <!-- info concernant la ressource -->
@@ -291,7 +296,7 @@
                                             <div class="row">
                                                 <!-- image de la video -->
                                                 <div class="col-5 col-sm-4 col-md-3 col-lg-3">
-                                                    <img src="{{asset('build/doc1.jpg')}}" class="img-fluid" alt="Image du document">
+                                                    <img src="{{asset('build/img/doc1.jpg')}}" class="img-fluid" alt="Image du document">
                                                 </div>
         
                                                 <!-- info concernant la video -->
@@ -338,7 +343,6 @@
 
     {% block javascripts %}
     {{encore_entry_script_tags('app')}}
-    {{encore_entry_script_tags('bootnavbar')}}
     {{encore_entry_script_tags('base')}}
     {{encore_entry_script_tags('compte')}}
     {% endblock %}
