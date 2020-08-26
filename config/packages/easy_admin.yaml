@@ -24,6 +24,7 @@ easy_admin:
                 fields:
                     - {property: imageFile, type: 'vich_image', label: 'Photo'}
                     - {property: designation}
+                    - {property: code}
                     - {property: description}
                     - {property: superCategorie}
 

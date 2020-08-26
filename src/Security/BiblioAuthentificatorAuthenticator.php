@@ -99,7 +99,7 @@ class BiblioAuthentificatorAuthenticator extends AbstractFormLoginAuthenticator 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
         
-        return new RedirectResponse($this->urlGenerator->generate('compte'));
+        return new RedirectResponse($this->urlGenerator->generate('compte', ['cat' => "Initiation à l'informatique"]));
     }
 
     protected function getLoginUrl()

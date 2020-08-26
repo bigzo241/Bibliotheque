@@ -6,9 +6,12 @@ use App\Repository\DocumentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=DocumentRepository::class)
+ * @vich\Uploadable
  */
 class Document
 {
@@ -30,6 +33,12 @@ class Document
     private $taille;
 
     /**
+     * @Vich\UploadableField(mapping="docs", fileNameProperty="titre", size="taille")
+     * @var File
+     */
+    private $fichier;
+
+    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $page;
@@ -45,7 +54,7 @@ class Document
     private $description;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="datetime")
      */
     private $dateAjout;
 
@@ -79,6 +88,12 @@ class Document
      * @ORM\ManyToOne(targetEntity=Contributeur::class, inversedBy="documents")
      */
     private $contributeur;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -253,8 +268,35 @@ class Document
         return $this;
     }
 
-    public function __toString()
+    public function getFichier(): ?File
     {
-        $this->titre;
+        return $this->fichier;
+    }
+
+    public function setFichier(?File $fichier = null): void
+    {
+        $this->fichier = $fichier;
+
+        if(null !== $fichier)
+        {
+            $this->updatedAt = new \DateTime();
+        }
+    }
+
+    public function __toString(): ?String
+    {
+        return $this->titre;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 }

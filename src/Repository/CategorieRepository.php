@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Categorie;
+use App\Entity\Contributeur;
+use App\Entity\SuperCategorie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -18,6 +20,21 @@ class CategorieRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Categorie::class);
     }
+
+
+    // public function findByContributeur($contributeur)
+    // {
+    //     $manager = $this->getEntityManager();
+    //     return $manager->createQueryBuilder()
+    //         ->select('c.designation', 'd.titre')
+    //         ->from($this->getEntityName(), 'c')
+    //         ->join('c.Documents', 'd')
+    //         ->where('d.contributeur = :val')
+    //         ->groupBy('c.designation')
+    //         ->setParameter('val', $contributeur)
+    //         ->getQuery()
+    //         ->getArrayResult();
+    // }
 
     // /**
     //  * @return Categorie[] Returns an array of Categorie objects
@@ -48,14 +65,4 @@ class CategorieRepository extends ServiceEntityRepository
     }
     */
 
-    public function getCatsInfo($username)
-    {
-        $manager = $this->getEntityManager();
-        $query = $manager->createQuery("SELECT c.designation, COUNT(d) AS documents
-                                        FROM App\Entity\Categorie c, App\Entity\Document d
-                                        WHERE c.designation = d.categorie
-                                        AND d.contributeur = :username")->setParameter('username', $username);
-        $data = $query->getArrayResult();
-        return $data;
-    }
 }

@@ -5,6 +5,7 @@
 {% block stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('accueil') }}
+    {{ encore_entry_link_tags('categorie') }}
 {% endblock %}
 
 {% block body %}
@@ -42,10 +43,16 @@
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active w-50 text-center font-weight-bold docs" id="nav-documents-tab"
                             data-toggle="tab" href="#nav-documents" role="tab" aria-controls="nav-documents"
-                            aria-selected="true">Documents</a>
+                            aria-selected="true">
+                            <img src="{{asset('build/icons/file-earmark-text.svg')}}" class="icons" alt="icon fichier">
+                            Documents ({{docs | length}})
+                        </a>
                         <a class="nav-item nav-link w-50 text-center font-weight-bold videos" id="nav-videos-tab"
                             data-toggle="tab" href="#nav-videos" role="tab" aria-controls="nav-videos"
-                            aria-selected="false">Vidéos</a>
+                            aria-selected="false">
+                            <img src="{{asset('build/icons/film.svg')}}" class="icons" alt="icon fichier">
+                            Vidéos ({{videos|length}}) 
+                        </a>
                     </div>
                 </nav>
     
@@ -56,44 +63,132 @@
                         <div class="row">
                             <!-- presentation des documents sur ecran large et plus -->
                             <div class="d-none d-sm-none d-md-none d-lg-block col-lg-12">
-                                <div class="row">
-                                    <!-- image de la ressource -->
-                                    <div class="col-lg-2">
-                                        <img src="{{asset('build/img/wallpaper.jpg')}}" class="img-fluid" alt="Image du document">
+                                {% for doc in docs %}
+                                    <div class="row mt-4 py-2 doc">
+                                        <!-- image de la ressource -->
+                                        <div class="col-lg-2">
+                                            <img src="{{asset('upload/fichier/documents/'~doc.categorie~'/'~doc.titre)}}" class="w-100" style="height: 200px;" alt="Image du document">
+                                        </div>
+        
+                                        <!-- info concernant la ressource -->
+                                        <div class="col-lg-3 d-lg-flex flex-column">
+                                            <span class="pb-1"> {{doc.titre}} </span>
+                                            <span class="pb-1">Taille: 15 Mo</span>
+                                            <span class="pb-1">Pages: 400</span>
+                                            <span class="pb-1">Ajouté le: {{doc.dateAjout | date('d/m/Y') }} </span>
+                                            <span class="pb-1">Contributeur: {{doc.contributeur}} </span>
+                                            <span>
+                                                Telechargé 
+                                                <span class="badge badge-success">
+                                                    {% if doc.nbrTelechargement is empty %}
+                                                        0
+                                                    {% else %}
+                                                        {{doc.nbrTelechargement}}
+                                                    {% endif %}
+                                                </span> fois 
+                                            </span>
+                                        </div>
+        
+                                        <!-- description de la ressource -->
+                                        <div class="col-lg-7">
+                                            <p class="text-justify">
+                                                {{doc.description}}
+                                            </p>
+                                        </div>
+
+                                        <!-- autrs infos -->
+                                        <div class="col-lg-12">
+                                            <div class="row align-items-center mt-3">
+                                                <div class="col-lg-2 d-flex justify-content-center">
+                                                    <a href="{{asset('upload/fichier/documents/'~doc.categorie~'/'~doc.titre)}}" class="btn btn-success text-center" role="button">Telecharger</a>
+                                                </div>
+                                                <div class="col-lg-3 d-flex justify-content-between">
+                                                    <div class="d-flex align-items-center badge badge-info like" id="{{doc.id}}dlike">
+                                                        <span>
+                                                            {% if doc.nbrLike is empty %}
+                                                                0
+                                                            {% else %}
+                                                                {{doc.nbrLike}}
+                                                            {% endif %}
+                                                        </span>
+                                                        <img src="{{asset('build/icons/thumbs-up.svg')}}" class="ml-1" alt="J'aime" style="width: 22px; height: 22px;">
+                                                    </div>
+                                                    <div class="d-flex align-items-center badge badge-info unlike" id="{{doc.id}}dunlike">
+                                                        <span>
+                                                            {% if doc.nbrUnlike is empty %}
+                                                                0
+                                                            {% else %}
+                                                                {{doc.nbrUnlike}}
+                                                            {% endif %}
+                                                        </span>
+                                                        <img src="{{asset('build/icons/thumbs-down.svg')}}" class="ml-1" alt="J'aime" style="width: 22px; height: 22px;">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-3">
+                                                    <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#commentBlock{{doc.id}}"
+                                                        aria-expanded="false" aria-controls="collapseExample">
+                                                        Commentaires({{doc.commentaires | length}})
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 collapse" id="commentBlock{{doc.id}}">
+                                            {# les commentaires #}
+                                            <div class="row p-3">
+                                                <div class="col-lg-12">
+                                                    {% if doc.commentaires|length == 0 %}
+                                                        <p class="text-center alert-info">
+                                                            <b>
+                                                                Aucun commentaire pour le moment. Soyez le premier à commenter ce document.
+                                                            </b>
+                                                        </p>
+                                                    {% else %}
+                                                        {% for comment in doc.commentaires %}
+                                                            <hr>
+                                                            <div class="row mb-2">
+                                                                <div class="col-lg-12">
+                                                                    <span class="h5 mr-3">{{comment.auteur}}</span>
+                                                                    <small>Publié le {{comment.datePublication | date('d/m/Y à h:m')}} </small>
+                                                                    <p class="mt-2 p-2 contenu">{{comment.contenu}}</p>
+                                                                </div>
+                                                            </div>
+
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+
+                                            {# le formulaire pour soumettre son commentaire #}
+                                            <div class="row">
+                                                <div class="col-lg-7 pl-5">
+                                                    <h2>Laisser un commentaire</h2>
+                                                </div>
+                                                <div class="col-lg-6 pl-5">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="auteur">Nom ou identifiant</label>
+                                                            <input type="text" name="auteur" id="auteur" class="form-control" required
+                                                                autofocus>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="contenu">Commentaire</label>
+                                                            <textarea class=" form-control" name="contenu" id="contenu" cols="30" rows="7"></textarea>
+                                                        </div>
+                                                    
+                                                        <input type="hidden" name="id" value="{{ doc.id }}">
+                                                        <input type="hidden" name="type" value="doc">
+                                                    
+                                                        <button class="btn btn-lg btn-primary mt-2" type="submit">
+                                                            Publier
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-    
-                                    <!-- info concernant la ressource -->
-                                    <div class="col-lg-3 d-lg-flex flex-column">
-                                        <span class="pb-1">Document 1</span>
-                                        <span class="pb-1">Taille: 15 Mo</span>
-                                        <span class="pb-1">Pages: 400</span>
-                                        <span class="pb-1">Ajouté le: 12/06/2020</span>
-                                        <span class="pb-1">Contributeur: Mamadou ZO</span>
-                                        <span>Telechargé <span class="badge badge-success">500</span> fois </span>
-                                    </div>
-    
-                                    <!-- description de la ressource -->
-                                    <div class="col-lg-7">
-                                        <p class="text-justify">
-                                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita assumenda qui
-                                            et rem quod repellendus autem, corrupti minus deleniti animi? Eius aut, animi
-                                            culpa ipsam ratione ipsa illum pariatur porro?
-                                        </p>
-                                    </div>
-                                </div>
-    
-                                <div class="row align-items-center mt-3">
-                                    <div class="col-lg-2 d-flex justify-content-center">
-                                        <a href="#" class="btn btn-primary text-center" role="button">Telecharger</a>
-                                    </div>
-                                    <div class="col-lg-3 d-flex justify-content-between">
-                                        <a href="#">120 j'aime</a>
-                                        <a href="#">20 j'aime pas</a>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <a href="#" class="btn btn-outline-info">Voir les commentaires(5)</a>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
     
                             <!-- presentation des documents sur ecran moyen -->
@@ -148,46 +243,132 @@
                         <div class="row">
                             <!-- presentation des videos sur ecran moyen -->
                             <div class="col-md-12 col-lg-12">
-                                <div class="row">
-                                    <!-- image de la video -->
-                                    <div class="col-5 col-sm-4 col-md-3 col-lg-2">
-                                        <img src="{{asset('build/img/wallpaper.jpg')}}" class="img-fluid" alt="Image du document">
+                                {% for video in videos %}
+                                    <div class="row mt-4 py-2 doc">
+                                        <!-- image de la ressource -->
+                                        <div class="col-lg-2">
+                                            <img src="{{asset('upload/fichier/videos/'~video.categorie~'/'~video.titre)}}" class="w-100" style="height: 200px;" alt="Image du document">
+                                        </div>
+                                    
+                                        <!-- info concernant la ressource -->
+                                        <div class="col-lg-3 d-lg-flex flex-column">
+                                            <span class="pb-1"> {{video.titre}} </span>
+                                            <span class="pb-1">Taille: 15 Mo</span>
+                                            <span class="pb-1">Pages: 400</span>
+                                            <span class="pb-1">Ajouté le: {{video.dateAjout | date('d/m/Y') }} </span>
+                                            <span class="pb-1">Contributeur: {{video.contributeur}} </span>
+                                            <span>
+                                                Telechargé
+                                                <span class="badge badge-success">
+                                                    {% if video.nbrTelechargement is empty %}
+                                                    0
+                                                    {% else %}
+                                                    {{video.nbrTelechargement}}
+                                                    {% endif %}
+                                                </span> fois
+                                            </span>
+                                        </div>
+                                    
+                                        <!-- description de la ressource -->
+                                        <div class="col-lg-7">
+                                            <p class="text-justify">
+                                                {{video.description}}
+                                            </p>
+                                        </div>
+                                    
+                                        <!-- autrs infos -->
+                                        <div class="col-lg-12">
+                                            <div class="row align-items-center mt-3">
+                                                <div class="col-lg-2 d-flex justify-content-center">
+                                                    <a href="#" class="btn btn-success text-center" role="button">Telecharger</a>
+                                                </div>
+                                                <div class="col-lg-3 d-flex justify-content-between">
+                                                    <div class="d-flex align-items-center badge badge-info like" id="{{video.id}}vlike">
+                                                        <span>
+                                                            {% if video.nbrLike is empty %}
+                                                                0
+                                                            {% else %}
+                                                                {{video.nbrLike}}
+                                                            {% endif %}
+                                                        </span>
+                                                        <img src="{{asset('build/icons/thumbs-up.svg')}}" class="ml-1" alt="J'aime"
+                                                            style="width: 22px; height: 22px;">
+                                                    </div>
+                                                    <div class="d-flex align-items-center badge badge-info unlike" id="{{video.id}}vunlike">
+                                                        <span>
+                                                            {% if video.nbrUnlike is empty %}
+                                                                0
+                                                            {% else %}
+                                                                {{video.nbrUnlike}}
+                                                            {% endif %}
+                                                        </span>
+                                                        <img src="{{asset('build/icons/thumbs-down.svg')}}" class="ml-1" alt="J'aime"
+                                                            style="width: 22px; height: 22px;">
+                                                    </div>
+                                                </div>
+                                    
+                                                <div class="col-lg-3">
+                                                    <button class="btn btn-outline-info" type="button" data-toggle="collapse"
+                                                        data-target="#commentBlockVideo{{video.id}}" aria-expanded="false" aria-controls="collapseExample">
+                                                        Commentaires({{video.commentaires | length}})
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="col-lg-12 collapse" id="commentBlockVideo{{video.id}}">
+                                            {# les commentaires #}
+                                            <div class="row p-3">
+                                                <div class="col-lg-12">
+                                                    {% if video.commentaires|length == 0 %}
+                                                        <p class="text-center alert-info">
+                                                            <b>
+                                                                Aucun commentaire pour le moment. Soyez le premier à commenter cette video.
+                                                            </b>
+                                                        </p>
+                                                    {% else %}
+                                                        {% for comment in video.commentaires %}
+                                                            <hr>
+                                                            <div class="row mb-2">
+                                                                <div class="col-lg-12">
+                                                                    <span class="h5 mr-3">{{comment.auteur}}</span>
+                                                                    <small>Publié le {{comment.datePublication | date('d/m/Y à h:m')}} </small>
+                                                                    <p class="mt-2 p-2 contenu">{{comment.contenu}}</p>
+                                                                </div>
+                                                            </div>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                    
+                                            {# le formulaire pour soumettre son commentaire #}
+                                            <div class="row">
+                                                <div class="col-lg-7 pl-5">
+                                                    <h2>Laisser un commentaire</h2>
+                                                </div>
+                                                <div class="col-lg-6 pl-5">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="auteur">Nom ou identifiant</label>
+                                                            <input type="text" name="auteur" id="auteur" class="form-control" required autofocus>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="contenu">Commentaire</label>
+                                                            <textarea class=" form-control" name="contenu" id="contenu" cols="30" rows="7"></textarea>
+                                                        </div>
+                                    
+                                                        <input type="hidden" name="id" value="{{ video.id }}">
+                                                        <input type="hidden" name="type" value="video">
+                                    
+                                                        <button class="btn btn-lg btn-primary mt-2" type="submit">
+                                                            Publier
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-    
-                                    <!-- info concernant la video -->
-                                    <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex flex-column">
-                                        <span class="pb-1">Vidéo 1</span>
-                                        <span class="pb-1">Taille: 15 Mo</span>
-                                        <span class="pb-1">Durée: 40:05</span>
-                                        <span class="pb-1">Ajouté le: 12/06/2020</span>
-                                        <span class="pb-1">Contributeur: Mamadou ZO</span>
-                                        <span>Telechargé <span class="badge badge-success">500</span> fois </span>
-                                    </div>
-    
-                                    <!-- description de la video -->
-                                    <div class="col-lg-7 pt-3 pt-sm-3 pt-lg-0">
-                                        <p class="text-justify">
-                                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita assumenda qui
-                                            et rem quod repellendus
-                                            autem,
-                                            corrupti minus deleniti animi? Eius aut, animi culpa ipsam ratione ipsa illum
-                                            pariatur porro?
-                                        </p>
-                                    </div>
-                                </div>
-    
-                                <div class="row align-items-center mt-0 mt-sm-0 mt-md-1 mt-lg-3">
-                                    <div class="col-6 col-sm-3 col-md-3 col-lg-2 d-flex justify-content-center">
-                                        <a href="#" class="btn btn-primary text-center" role="button">Telecharger</a>
-                                    </div>
-                                    <div class="col-6 col-sm-4 col-md-4 col-lg-3 d-flex justify-content-between">
-                                        <a href="#">120 j'aime</a>
-                                        <a href="#">20 j'aime pas</a>
-                                    </div>
-                                    <div class="col-sm-5 col-md-5 col-lg-3">
-                                        <a href="#" class="btn btn-outline-info">Voir les commentaires(5)</a>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -200,4 +381,5 @@
 {% block javascripts %}
     {{parent()}}
     {{encore_entry_script_tags('accueil')}}
+    {{encore_entry_script_tags('categorie')}}
 {% endblock %}

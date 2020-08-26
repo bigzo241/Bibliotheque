@@ -6,9 +6,12 @@ use App\Repository\VideoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=VideoRepository::class)
+ * @vich\Uploadable
  */
 class Video
 {
@@ -25,7 +28,7 @@ class Video
     private $titre;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $taille;
 
@@ -35,7 +38,7 @@ class Video
     private $description;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $dateAjout;
 
@@ -55,7 +58,7 @@ class Video
     private $nbrUnlike;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="time", nullable=true)
      */
     private $duree;
 
@@ -79,6 +82,18 @@ class Video
      * @ORM\ManyToOne(targetEntity=Contributeur::class, inversedBy="videos")
      */
     private $contributeur;
+
+    /**
+     * @Vich\UploadableField(mapping="videos", fileNameProperty="titre", size="taille")
+     * @var File
+     */
+    private $fichier;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -253,8 +268,34 @@ class Video
         return $this;
     }
 
-    public function __toString()
+    public function getFichier(): ?File
     {
-        $this->titre;
+        return $this->fichier;
+    }
+
+    public function setFichier(?File $fichier = null): void
+    {
+        $this->fichier = $fichier;
+
+        if (null !== $fichier) {
+            $this->updatedAt = new \DateTime();
+        }
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function __toString(): ?String
+    {
+        return $this->titre;
     }
 }

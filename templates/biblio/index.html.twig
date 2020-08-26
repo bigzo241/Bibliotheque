@@ -14,7 +14,7 @@
 
     <div class="jumbotron jumbotron-fluid">
         <div class="container-fluid">
-            <h1 class="display-5 text-center">Bienvenue sur la Plateforme de Partage de Ressources en Informatique</h1>
+            <h1 class="display-5 text-center"> {{ 'Bienvenue'|trans }} sur la Plateforme de Partage de Ressources en Informatique</h1>
             <p class="lead text-center">
                 Vous êtes etudiant en informatique, enseignant, developpeur ou expert, alors vous êtes au bonne endroit.
                 Ce site est une plateforme de partage de ressources informatiques entre les pationnés du WEB.
@@ -28,9 +28,9 @@
             {% for cat in cats %}    
                 <div class="col mb-4 masque">
                     <div class="card">
-                        <a href="{{path('categorie', {'id': cat.id})}}"> <img src="{{vich_uploader_asset(cat, 'imageFile')}}" class="card-img-top cardImg" alt=""> </a>
+                        <a href="{{path(cat.code)}}"> <img src="{{vich_uploader_asset(cat, 'imageFile')}}" class="card-img-top cardImg" alt=""> </a>
                         <div class="card-body">
-                            <a href="{{path('categorie', {'id': cat.id})}}">
+                            <a href="{{path(cat.code)}}">
                                 <h3 class="card-title text-center">{{cat.designation}}</h3>
                             </a>
                         </div>

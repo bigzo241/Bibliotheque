@@ -43,6 +43,7 @@ Encore
     .addEntry('initiation', './assets/js/initiation.js')
     .addEntry('compte', './assets/js/contribut/compte.js')
     .addEntry('inscription', './assets/js/contribut/inscription.js')
+    .addEntry('categorie', './assets/js/categorie.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -81,7 +82,7 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
 
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()

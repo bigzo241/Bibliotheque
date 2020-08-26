@@ -19,6 +19,54 @@ class CommentaireRepository extends ServiceEntityRepository
         parent::__construct($registry, Commentaire::class);
     }
 
+    /**
+     * fonction qui determine le nombre total de commentaires de tous les documents d'un contributeur donné
+     *
+     * @param integer $id identifiant du contributeur
+     * @return array tableau contenant les données
+     */
+    public function nbrCommDoc(int $id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT COUNT(*) AS nbrComm
+            FROM document d, Commentaire com, Contributeur con
+            WHERE com.document_id = d.id
+            AND d.contributeur_id = con.id
+            AND con.id = :id
+            ';
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        return $stmt->fetchAll();
+    }
+
+    /**
+     * fonction qui determine le nombre total de commentaires de toutes les videos d'un contributeur donné
+     *
+     * @param integer $id identifiant du contributeur
+     * @return array tableau contenant les données
+     */
+    public function nbrCommVideo(int $id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT COUNT(*) AS nbrComm
+            FROM Video v, Commentaire com, Contributeur con
+            WHERE com.document_id = v.id
+            AND v.contributeur_id = con.id
+            AND con.id = :id
+            ';
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return Commentaire[] Returns an array of Commentaire objects
     //  */

@@ -64,6 +64,11 @@ class Categorie
      */
     private $superCategorie;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $code;
+
 
     public function __construct()
     {
@@ -219,6 +224,18 @@ class Categorie
     public function setSuperCategorie(?SuperCategorie $superCategorie): self
     {
         $this->superCategorie = $superCategorie;
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(?string $code): self
+    {
+        $this->code = $code;
 
         return $this;
     }
