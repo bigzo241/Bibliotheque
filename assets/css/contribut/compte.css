@@ -1,4 +1,10 @@
     /* categorie */
+.top_bloc
+{
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
 .category, .ressource
 {
     box-shadow: 0px 0px 2px black;
@@ -14,4 +20,22 @@
 .nbrRes
 {
     height: max-content;
+}
+
+/* presentaion des ressources */
+.doc
+{
+    /* border: gainsboro; */
+    box-shadow: 0px 0px 4px gainsboro;
+}
+
+.docInfo
+{
+    font-size: 1.2rem;
+}
+
+.icons
+{
+    width: 20px;
+    height: 20px;
 }

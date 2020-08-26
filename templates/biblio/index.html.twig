@@ -14,176 +14,42 @@
 
     <div class="jumbotron jumbotron-fluid">
         <div class="container-fluid">
-            <h1 class="display-5 text-center">Bienvenue sur la Plateforme de Partage de Ressources en Informatique</h1>
+            <h1 class="display-5 text-center"> {{ 'Bienvenue'|trans }} sur la Plateforme de Partage de Ressources en Informatique</h1>
             <p class="lead text-center">
                 Vous êtes etudiant en informatique, enseignant, developpeur ou expert, alors vous êtes au bonne endroit.
                 Ce site est une plateforme de partage de ressources informatiques entre les pationnés du WEB.
             </p>
         </div>
     </div>
-    
-    {# <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3">
-            <div class="col mb-4">
-                <a href="initiation.html">
-                    <div class="d-flex align-items-center categorie">
-                        <div class="w-100">
-                            <h3 class="text-center">Initiation en informatique</h3>
-                            <span class="d-block text-center">Niveau: debutant</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-    
-            <div class="col mb-4">
-                <a href="#">
-                    <div class="d-flex align-items-center categorie">
-                        <div class="w-100">
-                            <h3 class="text-center">Programmation</h3>
-                            <span class="d-block text-center">Niveau: depend du langage</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-    
-            <div class="col mb-4">
-                <a href="#">
-                    <div class="d-flex align-items-center categorie">
-                        <div class="w-100">
-                            <h3 class="text-center">Base de données</h3>
-                            <span class="d-block text-center">Nivieau: 2eme année</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-    
-            <div class="col mb-4">
-                <a href="#">
-                    <div class="d-flex align-items-center categorie">
-                        <div class="w-100">
-                            <h3 class="text-center">Conception orientée objet</h3>
-                            <span class="d-block text-center">Nivieau: 2eme ou 3eme année</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-    
-            <div class="col mb-4">
-                <a href="#">
-                    <div class="d-flex align-items-center categorie">
-                        <div class="w-100">
-                            <h3 class="text-center">Framework</h3>
-                            <span class="d-block text-center">Nivieau: 3eme année</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-    
-            <div class="col mb-4">
-                <a href="#">
-                    <div class="d-flex align-items-center categorie">
-                        <div class="w-100">
-                            <h3 class="text-center">Developpement logiciel</h3>
-                            <span class="d-block text-center">Nivieau: master</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-    
-        </div>
-    </div> #}
 
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 categorie">
     
-            <div class="col mb-4 masque">
-                <div class="card">
-                    <a href="{{path('initiation')}}"> <img src="{{asset('build/doc1.jpg')}}" class="card-img-top cardImg" alt=""> </a>
-                    <div class="card-body">
-                        <a href="{{path('initiation')}}">
-                            <h3 class="card-title text-center">Initiation en informatique</h3>
-                        </a>
+            {% for cat in cats %}    
+                <div class="col mb-4 masque">
+                    <div class="card">
+                        <a href="{{path(cat.code)}}"> <img src="{{vich_uploader_asset(cat, 'imageFile')}}" class="card-img-top cardImg" alt=""> </a>
+                        <div class="card-body">
+                            <a href="{{path(cat.code)}}">
+                                <h3 class="card-title text-center">{{cat.designation}}</h3>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-    
-            <div class="col mb-4 masque">
-                <div class="card">
-                    <a href="{{path('programmation')}}">
-                        <img src="{{asset('build/wren.jpg')}}" class="card-img-top cardImg" alt="">
-                    </a>
-                    <div class="card-body">
-                        <a href="{{path('programmation')}}">
-                            <h3 class="card-title text-center">Programmation</h3>
-                        </a>
+            {% endfor %}
+
+            {% for supercat in supercats %}    
+                <div class="col mb-4 masque">
+                    <div class="card">
+                        <a href="{{path('supercategorie', {'titre': supercat.designation, 'id': supercat.id})}}"> <img src="{{vich_uploader_asset(supercat, 'imageFile')}}" class="card-img-top cardImg" alt=""> </a>
+                        <div class="card-body">
+                            <a href="{{path('supercategorie', {'titre': supercat.designation, 'id': supercat.id})}}">
+                                <h3 class="card-title text-center">{{supercat.designation}}</h3>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-    
-            <div class="col mb-4 masque">
-                <div class="card">
-                    <a href="{{path('bdd')}}">
-                        <img src="{{asset('build/wallpaper.jpg')}}" class="card-img-top cardImg" alt="">
-                    </a>
-                    <div class="card-body">
-                        <a href="{{path('bdd')}}">
-                            <h3 class="card-title text-center">Base de données</h3>
-                        </a>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="col mb-4 masque">
-                <div class="card">
-                    <a href="{{path('coo')}}">
-                        <img src="{{asset('build/img1.jpg')}}" class="card-img-top cardImg" alt="">
-                    </a>
-                    <div class="card-body">
-                        <a href="{{path('coo')}}">
-                            <h3 class="card-title text-center">Conception orientée Objet</h3>
-                        </a>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="col mb-4 masque">
-                <div class="card">
-                    <a href="{{path('framework')}}">
-                        <img src="{{asset('build/img2.jpg')}}" class="card-img-top cardImg" alt="">
-                    </a>
-                    <div class="card-body">
-                        <a href="{{path('framework')}}">
-                            <h3 class="card-title text-center">Framework</h3>
-                        </a>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="col mb-4 masque">
-                <div class="card">
-                    <a href="{{path('dev_logiciel')}}">
-                        <img src="{{asset('build/img3.jpg')}}" class="card-img-top cardImg" alt="">
-                    </a>
-                    <div class="card-body">
-                        <a href="{{path('dev_logiciel')}}">
-                            <h3 class="card-title text-center">Dévéloppement logiciel</h3>
-                        </a>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="col mb-4 masque">
-                <div class="card">
-                    <a href="{{path('logiciels')}}">
-                        <img src="{{asset('build/img4.jpg')}}" class="card-img-top cardImg" alt="">
-                    </a>
-                    <div class="card-body">
-                        <a href="{{path('logiciels')}}">
-                            <h3 class="card-title text-center">Logiciels</h3>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
     
         </div>
     </div>

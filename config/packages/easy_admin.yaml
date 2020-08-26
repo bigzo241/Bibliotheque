@@ -1,0 +1,46 @@
+easy_admin:
+    site_name: '<em style="font-size: 180%;">2PRI</em>'
+
+    user:
+        name_property_path: 'username'
+        display_avatar: true
+
+    entities:
+       # List the entity class name you want to manage
+      #  gestion des categories
+        Categorie:
+            class: App\Entity\Categorie
+            list:
+                fields:
+                    - {property: id}
+                    - {property: image, type: 'image', base_path: '%app.path.categorie_images%'}
+                    - {property: designation}
+                    - {property: description}
+                    - {property: Documents, label: "documents se trouvant dans cette categorie"}
+                    - {property: videos, label: "videos se trouvant dans cette categorie"}
+                    - {property: superCategorie, label: "inclut dans la super categorie"}
+            
+            form:
+                fields:
+                    - {property: imageFile, type: 'vich_image', label: 'Photo'}
+                    - {property: designation}
+                    - {property: code}
+                    - {property: description}
+                    - {property: superCategorie}
+
+        # gestion des super categories
+        SuperCategorie:
+            class: App\Entity\SuperCategorie
+            label: 'Super categorie'
+            list:
+                fields:
+                    - {property: id}
+                    - {property: image, type: 'image', base_path: '%app.path.supercategorie_images%'}
+                    - {property: designation}
+                    - {property: cats, label: 'Nombre de categorie'}
+
+            form:
+                fields:
+                    - {property: 'imageFile', type: 'vich_image', label: 'Photo'}
+                    - {property: 'designation'}
+                    - {property: 'cats', label: 'Sélectionner les categories à inclure dans la super categorie'}

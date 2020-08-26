@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
 
 {% block title %} Inscription | 2PRI {% endblock %}
 
@@ -25,7 +25,8 @@
     </div>
 {% endblock %}
 
-{% block javascript %}
-    {{ parent() }}
+{# fichiers js #}
+{% block javascripts %}
+    {{parent()}}
     {{encore_entry_script_tags('inscription')}}
 {% endblock %}

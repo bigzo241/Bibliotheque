@@ -1,0 +1,17 @@
+/* presentaion des ressources */
+.doc
+{
+    /* border: gainsboro; */
+    box-shadow: 0px 0px 4px gainsboro;
+}
+
+.contenu
+{
+    background-color: rgb(206, 210, 211);
+}
+
+.icons
+{
+    width: 20px;
+    height: 20px;
+}

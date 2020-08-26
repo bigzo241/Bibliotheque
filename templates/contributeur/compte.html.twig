@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Contributeur | 2PRI</title>
+
+    {% block stylesheets %}
+    {{encore_entry_link_tags('app')}}
+    {{encore_entry_link_tags('base')}}
+    {{encore_entry_link_tags('compte')}}
+    {% endblock %}
+
+</head>
+
+<!-- definition de quelques variables -->
+{% set nbrDoc = docs2|length %}
+{% set nbrVideo = videos2|length %}
+
+<body>
+
+    <header>
+        <div class="container-fluid">
+            <div class="row justify-content-between navtop">
+                <div class="col-5 col-sm-2 col-md-2 col-lg-2">
+                    <strong class="display-3 text-center">2PRI</strong>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- top -->
+    <section class="mt-3">
+        <div class="container-fluid">
+            <div class="row justify-content-between">
+                <!-- photo de profile -->
+                <div class="col top_bloc">
+                    <div class="row">
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-5">
+                            <img src="{{asset('build/icons/person.svg')}}" class="w-100" alt="">
+                        </div>
+                        <div class="col-lg-7 d-flex flex-column justify-content-center">
+                            <em class="h5"> <strong>Bienvenue {{username}}</strong> </em>
+                            <p>
+                                <small class="text-muted">
+                                    Vous pouvez gerer vos ressources convenablement depuis ce compte
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- statisitques -->
+                <div class="col top_bloc">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h5 class="text-center"> <strong>Vos statisitques</strong> </h2>
+                        </div>
+                    </div>
+        
+                    <div class="row justify-content-center">
+                        <!--statistique document -->
+                        <div class="col-lg-2 text-center" data-toggle="tooltip" data-placement="bottom" title="Nombre total de vos documents">
+                            <img src="{{asset('build/icons/file-earmark-text.svg')}}" class="w-100" alt="icon fichier">
+                            <span class="badge badge-info">{{docs1 | length }}</span>
+                        </div>
+                        <!-- statistique video -->
+                        <div class="col-lg-2 text-center" data-toggle="tooltip" data-placement="bottom" title="Nombre total de vos vidéos">
+                            <img src="{{asset('build/icons/film.svg')}}" class="w-100" alt="icon video">
+                            <span class="badge badge-info">{{videos1 | length }}</span>
+                        </div>
+                        <!-- statistique commentaire -->
+                        <div class="col-lg-2 text-center" data-toggle="tooltip" data-placement="bottom" title="Nombre total de vos commentaires">
+                            <img src="{{asset('build/icons/chat-dots.svg')}}" class="w-100" alt="icon comment">
+                            <span class="badge badge-info">{{nbrCommDocs[0]["nbrComm"] + nbrCommVideos[0]["nbrComm"]}}</span>
+                        </div>
+                        <!-- statistique de téléchargement -->
+                        <div class="col-lg-2 text-center" data-toggle="tooltip" data-placement="bottom" title="Nombre total de telechargement de vos ressources">
+                            <img src="{{asset('build/icons/download.svg')}}" class="w-100" alt="icon telechargement">
+                            <span class="badge badge-info"> 
+                                {% if downLikeUnlike[0][1] is empty %}
+                                    {{0}}
+                                {% else %}
+                                    {{downLikeUnlike[0][1]}}
+                                {% endif %}
+                            </span>
+                        </div>
+                        {# j'aime #}
+                        <div class="col-lg-2 text-center" data-toggle="tooltip" data-placement="bottom" title="Nombre total de j'aime">
+                            <img src="{{asset('build/icons/thumbs-up.svg')}}" class="w-100" alt="icon telechargement">
+                            <span class="badge badge-info">
+                                {% if downLikeUnlike[0][2] is empty %}
+                                    {{0}}
+                                {% else %}
+                                    {{downLikeUnlike[0][2]}}
+                                {% endif %}
+                            </span>
+                        </div>
+                        {# j'aime pas #}
+                        <div class="col-lg-2 text-center" data-toggle="tooltip" data-placement="bottom" title="Nombre total de j'aime pas">
+                            <img src="{{asset('build/icons/thumbs-down.svg')}}" class="w-100" alt="icon telechargement">
+                            <span class="badge badge-info">
+                                {% if downLikeUnlike[0][3] is empty %}
+                                    {{0}}
+                                {% else %}
+                                    {{downLikeUnlike[0][3]}}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- options -->
+                <div class="col top_bloc">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h5 class="text-center">
+                                <strong>Options</strong>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 d-flex flex-row justify-content-between">
+                            <div class="dropdown">
+                                <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Votre profile
+                                </a>
+        
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Modifier votre profile</a>
+                                    <a class="dropdown-item" href="#">Supprimer votre compte</a>
+                                </div>
+                            </div>
+                            <a href="{{path('accueil')}}" class="btn btn-outline-primary">Aller sur le site</a>
+                            <a href="{{path('app_logout')}}" class="btn btn-outline-primary">Deconnexion</a>
+                        </div>
+                    </div>
+                    <div class="row"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <hr>
+
+    <!-- categories et ressources -->
+    <section class="mb-5">
+        <div class="container-lg">
+            <div class="row mt-5 justify-content-center">
+                <!-- categories -->
+                <div class="d-none d-sm-none d-md-none d-lg-block col-md-3 col-lg-3 category">
+                    <div class="row mt-3">
+                        <div class="col-lg-12">
+                            <h2 class="text-center">Categories</h2>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-lg-12 pl-0">
+                            <ul class="nav nav-pills flex-column">
+                                {% for simpleCat in simpleCats %}
+                                    <li class="nav-item d-flex justify-content-between align-items-center">
+                                        <a class="nav-link" href="{{path('compte', {'cat': simpleCat.designation })}}">{{simpleCat.designation}}</a>
+                                    </li>
+                                {% endfor %}
+                                
+                                {% for superCat in superCats %}
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                                            aria-expanded="false"> {{superCat.designation}} </a>
+                                        <div class="dropdown-menu">
+                                            {% for cat in superCat.cats %}    
+                                                <a class="dropdown-item" href="{{path('compte', {'cat': cat.designation })}}">{{cat.designation}}</a>
+                                            {% endfor %}
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- ressources -->
+                <div class="col-md-9 col-lg-9 ressource">
+                    <div class="row mt-3">
+                        <div class="col-lg-12">
+                            <div class="row justify-content-between">
+                                <div class="col-sm-6 col-md-6 col-lg-8">
+                                    <select class="form-control d-md-block d-lg-none">
+                                        <option>Initiation en informatique</option>
+                                        <option>C</option>
+                                        <option>C++</option>
+                                        <option>C#</option>
+                                        <option>Java</option>
+                                        <option>Python</option>
+                                        <option>HTML5 & CSS3</option>
+                                        <option>Javascript</option>
+                                        <option>JQuery/JQuery-UI</option>
+                                        <option>PHP</option>
+                                        <option>Base de données</option>
+                                        <option>UML</option>
+                                        <option>Design pattern</option>
+                                        <option>Bootstrap</option>
+                                        <option>Symfony</option>
+                                        <option>Developpement logiciel</option>
+                                        <option>Logitech</option>
+                                    </select>
+                                    <h2 class="d-none d-sm-none d-md-none d-lg-block">{{cat}}</h2>
+                                </div>
+
+                                <!-- Modal document -->
+                                <div class="modal fade" id="modalDocument" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">Ajouter un document</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{path('ajoutDoc')}}" method="POST" enctype="multipart/form-data">
+                                                    <div class="form-group">
+                                                        <label for="doc">Inserer un document</label>
+                                                        <input type="file" name="doc" id="doc" required class="form-control-file">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="lang">Sélectionner la langue du document</label>
+                                                        <select name="lang" id="lang" required class="form-control">
+                                                            <option value="fr">Francais</option>
+                                                            <option value="en">Anglais</option>
+                                                        </select>
+                                                        <input type="hidden" name="cat" value="{{cat}}">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="descrip">
+                                                            Donnez-nous une description claire et precise de votre document
+                                                        </label>
+                                                        <textarea name="descrip" id="descrip" cols="30" rows="5" class="form-control"></textarea>
+                                                    </div>
+
+                                                    <button type="submit" class="btn btn-success">Ajouter</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal video -->
+                                <div class="modal fade" id="modalVideo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel1" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel1">Ajouter une video</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{path('ajoutVideo')}}" method="POST" enctype="multipart/form-data">
+                                                    <div class="form-group">
+                                                        <label for="doc">Inserer une vidéo</label>
+                                                        <input type="file" name="doc" id="doc" required class="form-control-file">
+                                                        <input type="hidden" name="cat" value="{{cat}}">
+
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="descrip">
+                                                            Donnez-nous une description claire et precise de votre document
+                                                        </label>
+                                                        <textarea name="descrip" id="descrip" cols="30" rows="5" class="form-control"></textarea>
+                                                    </div>
+
+                                                    <button type="submit" class="btn btn-success">Ajouter</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-6 col-lg-4 text-right d-lg-flex align-items-center pt-2 pt-sm-0">
+                                    <div class="dropdown">
+                                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            + Ajouter une ressource
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#" role="button" data-toggle="modal" data-target="#modalDocument">
+                                                Document
+                                            </a>
+                                            <a class="dropdown-item" href="#" role="button" data-toggle="modal" data-target="#modalVideo">
+                                                Video
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-lg-12">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active w-50 text-center font-weight-bold docs"
+                                        id="nav-documents-tab" data-toggle="tab" href="#nav-documents" role="tab"
+                                        aria-controls="nav-documents" aria-selected="true">
+                                        <img src="{{asset('build/icons/file-earmark-text.svg')}}" class="icons" alt="icon fichier">
+                                        Documents ({{nbrDoc}}) 
+                                    </a>
+                                    <a class="nav-item nav-link w-50 text-center font-weight-bold videos" id="nav-videos-tab"
+                                        data-toggle="tab" href="#nav-videos" role="tab" aria-controls="nav-videos"
+                                        aria-selected="false">
+                                        <img src="{{asset('build/icons/film.svg')}}" class="icons" alt="icon fichier">
+                                        Vidéos ({{nbrVideo}}) 
+                                    </a>
+                                </div>
+                            </nav>
+        
+                            <div class="p-3 tab-content" id="nav-tabContent">
+                                <!-- les documents -->
+                                <div class="tab-pane fade show active" id="nav-documents" role="tabpanel"
+                                    aria-labelledby="nav-documents-tab">
+                                    <div class="row">
+                                        <!-- presentation des documents sur ecran large et plus -->
+        
+                                        <!-- presentation des documents sur ecran moyen -->
+                                        <div class="col-md-12 col-lg-12">
+                                            {% if nbrDoc == 0 %}
+                                                <p class="alert alert-info" style="font-size: 1.3rem;">
+                                                    Vous n'avez pas encore publié de documents pour cette catégorie. Cliquez sur le 
+                                                    bouton <b>"Ajouter une ressource"</b> ci-dessus pour commencer à publier vos documents.
+                                                </p>
+                                                <p class="alert alert-warning">
+                                                    Sachez que une fois publiées, vos ressources seront <b>visibles et téléchargeables</b>
+                                                    sur la plateforme.
+                                                </p>
+                                            {% else %}   
+                                                {% for doc in docs2 %}
+                                                    <div class="row mt-4 p-2 doc">
+                                                        <!-- image de la ressource -->
+                                                        <div class="col-5 col-sm-4 col-md-3 col-lg-3">
+                                                            <img src="{{asset('upload/fichier/documents/'~cat~'/'~doc.titre)}}" class="w-100" style="height: 220px;" alt="Image du document">
+                                                        </div>
+                                                    
+                                                        <!-- info concernant la ressource -->
+                                                        <div class="col-6 col-sm-6 col-md-9 col-lg-3 d-flex flex-column docInfo">
+                                                            <span class="badge badge-light py-1 mb-2">{{doc.titre}} </span>
+                                                            <span class="badge badge-light py-1 mb-2">Taille: 15 Mo</span>
+                                                            <span class="badge badge-light py-1 mb-2">Pages: 400</span>
+                                                            <span class="badge badge-light py-1 mb-2">Ajouté le: {{doc.dateAjout | date('d/m/Y')}}</span>
+                                                            <span class="badge badge-light py-1 mb-2">Telechargé 
+                                                                <span class="badge badge-success" style="font-size: 0.9rem;">
+                                                                    {% if doc.nbrTelechargement is empty %}
+                                                                        0 
+                                                                    {% else %}
+                                                                        {{doc.nbrTelechargement}}
+                                                                    {% endif %}
+                                                                </span>
+                                                                fois 
+                                                            </span>
+                                                            <span class="badge badge-light py-1 mb-2"> 
+                                                                <span class="badge badge-success" style="font-size: 0.9rem;">
+                                                                    {% if doc.nbrLike is empty %}
+                                                                        0
+                                                                    {% else %}    
+                                                                        {{doc.nbrLike}}
+                                                                    {% endif %}
+                                                                </span>
+                                                                <img src="{{asset('build/icons/thumbs-up.svg')}}" class="icons" alt="icon fichier">
+                                                            </span>
+                                                            <span class="badge badge-light py-1 mb-2">
+                                                                <span class="badge badge-success" style="font-size: 0.9rem;">
+                                                                    {% if doc.nbrUnlike is empty %}
+                                                                        0
+                                                                    {% else %}
+                                                                        {{doc.nbrUnlike}}
+                                                                    {% endif %}
+                                                                </span>
+                                                                <img src="{{asset('build/icons/thumbs-down.svg')}}" class="icons" alt="icon fichier">
+                                                            </span>
+                                                        </div>
+                                                    
+                                                        <!-- description de la ressource -->
+                                                        <div class="col-md-12 col-lg-6">
+                                                            <p class="text-justify pt-md-2">
+                                                                {{doc.description}}
+                                                            </p>
+                                                        </div>
+
+                                                        <!-- les commentaires -->
+                                                        <div class="col-12 pt-md-2 pt-lg-2">
+                                                            <div class="row justify-content-between">
+                                                                <div class="col-md-3">
+                                                                    <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#commentBlock{{doc.id}}"
+                                                                        aria-expanded="false" aria-controls="collapseExample">
+                                                                        Commentaires({{doc.commentaires | length}})
+                                                                    </button>
+                                                                </div>
+                                                                <div>
+                                                                    <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#modalmodifierDoc{{doc.id}}">
+                                                                        Modifier la description
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalsupprimerDoc{{doc.id}}">
+                                                                        Supprimer
+                                                                    </button>
+
+                                                                    <!-- les fenetres modales des boutons ci-dessus -->
+                                                                        <!-- modal suppression -->
+                                                                    <div class="modal fade" id="modalsupprimerDoc{{doc.id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+                                                                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="staticBackdropLabel">Confirmation de la suppréssion</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                                                                    <a href="{{path('suppRes', {'id':doc.id, 'type': 'doc', 'cat': cat})}}" class="btn btn-danger" role="button">
+                                                                                        Supprimer
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                        <!-- modal modification -->
+                                                                    <div class="modal fade" id="modalmodifierDoc{{doc.id}}" data-backdrop="static" tabindex="-1" role="dialog"
+                                                                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="staticBackdropLabel">Modification de la description</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form action="{{path('modifRes')}}" method="POST">
+                                                                                        
+                                                                                        <input type="hidden" name="id" value="{{doc.id}}">
+                                                                                        <input type="hidden" name="type" value="doc">
+                                                                                        <input type="hidden" name="cat" value="{{cat}}">
+                                                                    
+                                                                                        <div class="form-group">
+                                                                                            <label for="descrip">
+                                                                                                Modifier la description du document
+                                                                                            </label>
+                                                                                            <textarea name="descrip" id="descrip" cols="35" rows="7" class="form-control">
+                                                                                                {{doc.description}}
+                                                                                            </textarea>
+                                                                                        </div>
+                                                                    
+                                                                                        <button type="submit" class="btn btn-success">Modifier</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        <div class="col-lg-12 collapse" id="commentBlock{{doc.id}}">
+                                                            {# les commentaires #}
+                                                            <div class="row p-3">
+                                                                <div class="col-lg-12">
+                                                                    {% if doc.commentaires|length == 0 %}
+                                                                    <p class="text-center alert-info">
+                                                                        <b>
+                                                                            Aucun commentaire pour le moment.
+                                                                        </b>
+                                                                    </p>
+                                                                    {% else %}
+                                                                        {% for comment in doc.commentaires %}
+                                                                            <hr>
+                                                                            <div class="row mb-2">
+                                                                                <div class="col-lg-12">
+                                                                                    <span class="h5 mr-3">{{comment.auteur}}</span>
+                                                                                    <small>Publié le {{comment.datePublication | date('d/m/Y à h:m')}} </small>
+                                                                                    <p class="mt-2 p-2 contenu">{{comment.contenu}}</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <!-- les videos -->
+                                <div class="tab-pane fade" id="nav-videos" role="tabpanel" aria-labelledby="nav-videos-tab">
+                                    <div class="row">
+                                        <!-- presentation des videos sur ecran moyen -->
+                                        <div class="col-md-12 col-lg-12">
+                                            {% if nbrVideo == 0 %} 
+                                                <p class="alert alert-info" style="font-size: 1.3rem;">
+                                                    Vous n'avez pas encore publié de vidéos pour cette catégorie. Cliquez sur le
+                                                    bouton <b>"Ajouter une ressource"</b> ci-dessus pour commencer à publier vos vidéos.
+                                                </p>
+                                                <p class="alert alert-warning">
+                                                    Sachez que une fois publiées, vos ressources seront <b>visibles et téléchargeables</b>
+                                                    sur la plateforme.
+                                                </p>
+                                            {% else %}    
+                                                {% for video in videos2 %}
+                                                    <div class="row mt-4 p-2 doc">
+                                                        <!-- image de la ressource -->
+                                                        <div class="col-5 col-sm-4 col-md-3 col-lg-3">
+                                                            <img src="{{asset('upload/fichier/videos/'~cat~'/'~video.titre)}}" class="w-100" style="height: 220px;" alt="Image du document">
+                                                        </div>
+                                                    
+                                                        <!-- info concernant la ressource -->
+                                                        <div class="col-6 col-sm-6 col-md-9 col-lg-3 d-flex flex-column docInfo">
+                                                            <span class="badge badge-light py-1 mb-2">{{video.titre}} </span>
+                                                            <span class="badge badge-light py-1 mb-2">Taille: 15 Mo</span>
+                                                            <span class="badge badge-light py-1 mb-2">Pages: 400</span>
+                                                            <span class="badge badge-light py-1 mb-2">Ajouté le: {{video.dateAjout | date('d/m/Y')}}</span>
+                                                            <span class="badge badge-light py-1 mb-2">Telechargé
+                                                                <span class="badge badge-success" style="font-size: 0.9rem;">
+                                                                    {% if video.nbrTelechargement is empty %}
+                                                                        0
+                                                                    {% else %}
+                                                                        {{video.nbrTelechargement}}
+                                                                    {% endif %}
+                                                                </span>
+                                                                fois
+                                                            </span>
+                                                            <span class="badge badge-light py-1 mb-2">
+                                                                <span class="badge badge-success" style="font-size: 0.9rem;">
+                                                                    {% if video.nbrLike is empty %}
+                                                                        0
+                                                                    {% else %}
+                                                                        {{video.nbrLike}}
+                                                                    {% endif %}
+                                                                </span>
+                                                                <img src="{{asset('build/icons/thumbs-up.svg')}}" class="icons" alt="icon fichier">
+                                                            </span>
+                                                            <span class="badge badge-light py-1 mb-2">
+                                                                <span class="badge badge-success" style="font-size: 0.9rem;">
+                                                                    {% if video.nbrUnlike is empty %}
+                                                                        0
+                                                                    {% else %}
+                                                                        {{video.nbrUnlike}}
+                                                                    {% endif %}
+                                                                </span>
+                                                                <img src="{{asset('build/icons/thumbs-down.svg')}}" class="icons" alt="icon fichier">
+                                                            </span>
+                                                        </div>
+                                                    
+                                                        <!-- description de la ressource -->
+                                                        <div class="col-md-12 col-lg-6">
+                                                            <p class="text-justify pt-md-2">
+                                                                {{video.description}}
+                                                            </p>
+                                                        </div>
+                                                    
+                                                        <!-- les commentaires -->
+                                                        <div class="col-12 pt-md-2 pt-lg-2">
+                                                            <div class="row justify-content-between">
+                                                                <div class="col-md-3">
+                                                                    <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#commentBlock{{video.id}}"
+                                                                        aria-expanded="false" aria-controls="collapseExample">
+                                                                        Commentaires({{video.commentaires | length}})
+                                                                    </button>
+                                                                </div>
+
+                                                                <div>
+                                                                    <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#modalmodifierVideo{{video.id}}">
+                                                                        Modifier la description
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalsupprimerVideo{{video.id}}">
+                                                                        Supprimer
+                                                                    </button>
+                                                                
+                                                                    <!-- les fenetres modales des boutons ci-dessus -->
+                                                                        <!-- modal suppression -->
+                                                                    <div class="modal fade" id="modalsupprimerVideo{{video.id}}" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                                                                        role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="staticBackdropLabel">Confirmation de la suppréssion</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                                                                    <a href="{{path('suppRes', {'id':video.id, 'type': 'video', 'cat': cat})}}" class="btn btn-danger"
+                                                                                        role="button">
+                                                                                        Supprimer
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                        <!-- modal modification -->
+                                                                    <div class="modal fade" id="modalmodifierVideo{{video.id}}" data-backdrop="static" tabindex="-1" role="dialog"
+                                                                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="staticBackdropLabel">Modification de la description</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form action="{{path('modifRes')}}" method="POST">
+                                                                
+                                                                                        <input type="hidden" name="id" value="{{video.id}}">
+                                                                                        <input type="hidden" name="type" value="video">
+                                                                                        <input type="hidden" name="cat" value="{{cat}}">
+                                                                
+                                                                                        <div class="form-group">
+                                                                                            <label for="descrip">
+                                                                                                Modifier la description du document
+                                                                                            </label>
+                                                                                            <textarea name="descrip" id="descrip" cols="35" rows="7" class="form-control">
+                                                                                                {{video.description}}
+                                                                                            </textarea>
+                                                                                        </div>
+                                                                
+                                                                                        <button type="submit" class="btn btn-success">Modifier</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-12 collapse" id="commentBlock{{video.id}}">
+                                                            {# les commentaires #}
+                                                            <div class="row p-3">
+                                                                <div class="col-lg-12">
+                                                                    {% if video.commentaires|length == 0 %}
+                                                                        <p class="text-center alert-info">
+                                                                            <b>
+                                                                                Aucun commentaire pour le moment.
+                                                                            </b>
+                                                                        </p>
+                                                                    {% else %}
+                                                                        {% for comment in video.commentaires %}
+                                                                            <hr>
+                                                                            <div class="row mb-2">
+                                                                                <div class="col-lg-12">
+                                                                                    <span class="h5 mr-3">{{comment.auteur}}</span>
+                                                                                    <small>Publié le {{comment.datePublication | date('d/m/Y à h:m')}} </small>
+                                                                                    <p class="mt-2 p-2 contenu">{{comment.contenu}}</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    {% block javascripts %}
+    {{encore_entry_script_tags('app')}}
+    {{encore_entry_script_tags('base')}}
+    {{encore_entry_script_tags('compte')}}
+    {% endblock %}
+
+</body>
+
+</html>
